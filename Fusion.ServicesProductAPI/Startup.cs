@@ -1,4 +1,6 @@
-﻿using Fusion.ServicesProductAPI.DbContexts;
+﻿using AutoMapper;
+using Fusion.ServicesProductAPI.DbContexts;
+using Fusion.ServicesProductAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Configuration;
@@ -20,6 +22,11 @@ namespace Fusion.ServicesProductAPI
             services.AddDbContext<ApplicationDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c => 
             {
@@ -36,6 +43,8 @@ namespace Fusion.ServicesProductAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
 
             app.UseAuthorization();
 
