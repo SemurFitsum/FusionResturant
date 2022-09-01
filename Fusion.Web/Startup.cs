@@ -20,7 +20,30 @@ namespace Fusion.Web
 
             services.AddScoped<IProductService, ProductService>();
             services.AddControllersWithViews();
+
+            services.AddAuthentication(options => {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+                .AddCookie("Cookies", c=>c.ExpireTimeSpan=TimeSpan.FromMinutes(10))
+                .AddOpenIdConnect("oidc", options => { 
+                    options.Authority = Configuration["ServiceUrls:IdentityAPI"];
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.ClientId = "fusion";
+                    options.ClientSecret = "secret";
+                    options.ResponseType = "code";
+
+                    options.TokenValidationParameters.NameClaimType = "name";
+                    options.TokenValidationParameters.RoleClaimType = "role";
+                    options.Scope.Add("fusion");
+                    options.SaveTokens = true;
+
+                })
+                ;
+
             services.AddRazorPages();
+
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -33,6 +56,8 @@ namespace Fusion.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

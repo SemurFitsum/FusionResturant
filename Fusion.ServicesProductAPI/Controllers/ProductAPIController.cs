@@ -1,5 +1,6 @@
 ﻿using Fusion.ServicesProductAPI.Models.DTO;
 using Fusion.ServicesProductAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace Fusion.ServicesProductAPI.Controllers
             this._response = new ResponseDTO();
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<object> Get()
         {
@@ -35,6 +37,7 @@ namespace Fusion.ServicesProductAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{id}")]
         public async Task<object> Get(int id)
         {
@@ -52,6 +55,7 @@ namespace Fusion.ServicesProductAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<object> Post([FromBody] ProductDTO productDTO)
         {
             try
@@ -68,6 +72,7 @@ namespace Fusion.ServicesProductAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<object> Put([FromBody] ProductDTO productDTO)
         {
             try
@@ -84,6 +89,7 @@ namespace Fusion.ServicesProductAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles ="Admin")]
         [Route("{id}")]
         public async Task<object> Delete(int id)
         {
