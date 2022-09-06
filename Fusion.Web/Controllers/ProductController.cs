@@ -92,9 +92,9 @@ namespace Fusion.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var response = await _productService.DeleteProductAsync<ResponseDTO>(model.ProductId, accessToken);
-                if (response != null)
+                if (response.IsSuccess)
                 {
-                    return RedirectToAction("ProductIndex");
+                    return RedirectToAction(nameof(ProductIndex));
                 }
             return View(model);
         }
