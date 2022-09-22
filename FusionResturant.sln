@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusion.ServicesProductAPI",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusion.Services.Identity", "Fusion.Services.Identity\Fusion.Services.Identity.csproj", "{255C2C67-D148-465B-9391-B1AB214B9E04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.Services.ShoppingCartAPI", "Fusion.Services.ShoppingCartAPI\Fusion.Services.ShoppingCartAPI.csproj", "{D803EB41-0320-4203-812E-B9F754117B18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{255C2C67-D148-465B-9391-B1AB214B9E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{255C2C67-D148-465B-9391-B1AB214B9E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{255C2C67-D148-465B-9391-B1AB214B9E04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D803EB41-0320-4203-812E-B9F754117B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D803EB41-0320-4203-812E-B9F754117B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D803EB41-0320-4203-812E-B9F754117B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D803EB41-0320-4203-812E-B9F754117B18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{A7A3FBFE-9637-461B-AEED-B0D52CD087B6} = {7BDF36E2-6A05-47A8-B160-6C7E42BAECCF}
 		{5CDEE543-496B-41A0-88E9-D5F74CCB979A} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
 		{255C2C67-D148-465B-9391-B1AB214B9E04} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
+		{D803EB41-0320-4203-812E-B9F754117B18} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E3E89EB-8A00-48AF-A247-766B75C18C43}

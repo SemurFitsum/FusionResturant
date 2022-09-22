@@ -1,5 +1,6 @@
 ﻿using Fusion.Web.Services;
 using Fusion.Web.Services.IServices;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Fusion.Web
 {
@@ -15,10 +16,14 @@ namespace Fusion.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient<IProductService, ProductService>();
+            services.AddHttpClient<ICartService, CartService>();
 
             SD.ProductAPIBase = Configuration["ServiceUrls:ProductAPI"];
+            SD.ShoppingCartAPIBase = Configuration["ServiceUrls:ShoppingCartAPI"];
 
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICartService, CartService>();
+
             services.AddControllersWithViews();
 
             services.AddAuthentication(options => {
@@ -32,7 +37,8 @@ namespace Fusion.Web
                     options.ClientId = "fusion";
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
-
+                    options.ClaimActions.MapJsonKey("role", "role", "role");
+                    options.ClaimActions.MapJsonKey("sub", "sub", "sub");
                     options.TokenValidationParameters.NameClaimType = "name";
                     options.TokenValidationParameters.RoleClaimType = "role";
                     options.Scope.Add("fusion");
