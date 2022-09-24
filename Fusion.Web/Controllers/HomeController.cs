@@ -49,18 +49,28 @@ namespace Fusion.Web.Controllers
         [Authorize]
         public async Task<IActionResult> DetailsPost(ProductDTO productDTO)
         {
+            //CartDTO cartDto = new()
+            //{
+            //    CartHeader = new CartHeaderDTO
+            //    {
+            //        UserId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value,
+            //        CouponCode = "Coupon"
+            //    }
+            //};
+
             CartDTO cartDto = new()
             {
-                CartHeader = new CartHeaderDTO
-                {
-                    UserId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value
-                }
             };
 
             CartDetailsDTO cartDetails = new CartDetailsDTO()
             {
                 Count = productDTO.Count,
-                ProductId = productDTO.ProductId
+                ProductId = productDTO.ProductId,
+                CartHeader = new CartHeaderDTO
+                {
+                    UserId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value,
+                    CouponCode = "Coupon"
+                }
             };
 
             var resp = await _productService.GetProductByIdAsync<ResponseDTO>(productDTO.ProductId, "");
@@ -69,7 +79,8 @@ namespace Fusion.Web.Controllers
                 cartDetails.Product = JsonConvert.DeserializeObject<ProductDTO>(Convert.ToString(resp.Result));
             }
 
-            cartDetails.CartHeader = cartDto.CartHeader;
+            //cartDetails.CartHeader = cartDto.CartHeader;
+            cartDto.CartHeader = cartDetails.CartHeader;
 
             List<CartDetailsDTO> cartDetailsDtos = new();
             cartDetailsDtos.Add(cartDetails);

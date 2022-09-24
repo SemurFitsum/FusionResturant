@@ -22,7 +22,7 @@ namespace Fusion.Services.ShoppingCartAPI.Repository
             if (cartHeaderFromDb != null)
             {
                 _db.CartDetails
-                    .RemoveRange(_db.CartDetails.Where(u => u.CartHeaderId == cartHeaderFromDb.CareHeaderId));
+                    .RemoveRange(_db.CartDetails.Where(u => u.CartHeaderId == cartHeaderFromDb.CartHeaderId));
 
                 _db.CartHeaders.Remove(cartHeaderFromDb);
                 await _db.SaveChangesAsync();
@@ -34,56 +34,65 @@ namespace Fusion.Services.ShoppingCartAPI.Repository
         public async Task<CartDTO> CreateUpdateCart(CartDTO cartDTO)
         {
             Cart cart = _mapper.Map<Cart>(cartDTO);
-
-            // check if product exists in database, if not create it!
-            var prodIndb = await _db.Products
-                .FirstOrDefaultAsync(u=>u.ProductId==cartDTO.CartDetails.FirstOrDefault()
-                .ProductId);
-
-            if (prodIndb == null)
+            
+            try
             {
-                _db.Products.Add(cart.CartDetails.FirstOrDefault().Product);
-                await _db.SaveChangesAsync();
-            }
 
-            // check if header is null
-            var cartHeaderFromDb = await _db.CartHeaders.AsNoTracking()
-                .FirstOrDefaultAsync(u => u.UserId == cart.CartHeader.UserId);
+                // check if product exists in database, if not create it!
+                var prodIndb = await _db.Products
+                    .FirstOrDefaultAsync(u => u.ProductId == cartDTO.CartDetails.FirstOrDefault()
+                    .ProductId);
 
-            if (cartHeaderFromDb == null)
-            {
-                // create header and details
-                _db.CartHeaders.Add(cart.CartHeader);
-                await _db.SaveChangesAsync();
-                cart.CartDetails.FirstOrDefault().CartHeaderId = cart.CartHeader.CareHeaderId;
-                cart.CartDetails.FirstOrDefault().Product = null;
-                _db.CartDetails.Add(cart.CartDetails.FirstOrDefault());
-                await _db.SaveChangesAsync();
-            }
-            else
-            {
-                //  if header is not null
-                // check if details has some product
-                var cartDetailsFromDb = await _db.CartDetails.AsNoTracking().FirstOrDefaultAsync(
-                    u => u.ProductId == cart.CartDetails.FirstOrDefault().ProductId &&
-                    u.CartHeaderId == cartHeaderFromDb.CareHeaderId);
-
-                if (cartDetailsFromDb == null)
+                if (prodIndb == null)
                 {
-                    //create details
-                    cart.CartDetails.FirstOrDefault().CartHeaderId = cartHeaderFromDb.CareHeaderId;
+                    _db.Products.Add(cart.CartDetails.FirstOrDefault().Product);
+                    await _db.SaveChangesAsync();
+                }
+
+                // check if header is null
+                var cartHeaderFromDb = await _db.CartHeaders.AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.UserId == cart.CartHeader.UserId);
+
+                if (cartHeaderFromDb == null)
+                {
+                    // create header and details
+                    _db.CartHeaders.Add(cart.CartHeader);
+                    await _db.SaveChangesAsync();
+                    cart.CartDetails.FirstOrDefault().CartHeaderId = cart.CartHeader.CartHeaderId;
                     cart.CartDetails.FirstOrDefault().Product = null;
                     _db.CartDetails.Add(cart.CartDetails.FirstOrDefault());
                     await _db.SaveChangesAsync();
                 }
                 else
                 {
-                    //update the count / cart details
-                    cart.CartDetails.FirstOrDefault().Product = null;
-                    cart.CartDetails.FirstOrDefault().Count += cartDetailsFromDb.Count;
-                    _db.CartDetails.Update(cart.CartDetails.FirstOrDefault());
-                    await _db.SaveChangesAsync();
+                    //  if header is not null
+                    // check if details has some product
+                    var cartDetailsFromDb = await _db.CartDetails.AsNoTracking().FirstOrDefaultAsync(
+                        u => u.ProductId == cart.CartDetails.FirstOrDefault().ProductId &&
+                        u.CartHeaderId == cartHeaderFromDb.CartHeaderId);
+
+                    if (cartDetailsFromDb == null)
+                    {
+                        //create details
+                        cart.CartDetails.FirstOrDefault().CartHeaderId = cartHeaderFromDb.CartHeaderId;
+                        cart.CartDetails.FirstOrDefault().Product = null;
+                        _db.CartDetails.Add(cart.CartDetails.FirstOrDefault());
+                        await _db.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        //update the count / cart details
+                        cart.CartDetails.FirstOrDefault().Product = null;
+                        cart.CartDetails.FirstOrDefault().Count += cartDetailsFromDb.Count;
+                        _db.CartDetails.Update(cart.CartDetails.FirstOrDefault());
+                        await _db.SaveChangesAsync();
+                    }
                 }
+                
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
             }
 
             return _mapper.Map<CartDTO>(cart);
@@ -97,7 +106,7 @@ namespace Fusion.Services.ShoppingCartAPI.Repository
             };
 
             cart.CartDetails = _db.CartDetails
-                .Where(u => u.CartHeaderId == cart.CartHeader.CareHeaderId).Include(u=>u.Product);
+                .Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId).Include(u=>u.Product);
 
             return _mapper.Map<CartDTO>(cart);
         }
@@ -117,7 +126,7 @@ namespace Fusion.Services.ShoppingCartAPI.Repository
                 if (totalCountofCartItems == 1)
                 {
                     var cartHeaderToRemove = await _db.CartHeaders
-                        .FirstOrDefaultAsync(u => u.CareHeaderId == cartDetails.CartHeaderId);
+                        .FirstOrDefaultAsync(u => u.CartHeaderId == cartDetails.CartHeaderId);
 
                     _db.CartHeaders.Remove(cartHeaderToRemove);
                 }

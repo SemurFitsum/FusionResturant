@@ -3,6 +3,7 @@ using Fusion.Services.ShoppingCartAPI.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fusion.Services.ShoppingCartAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220924094620_rename-carthearderId")]
+    partial class renamecarthearderId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +31,9 @@ namespace Fusion.Services.ShoppingCartAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartDetailsId"), 1L, 1);
 
+                    b.Property<int>("CareHeaderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CartHeaderId")
                         .HasColumnType("int");
 
@@ -40,7 +45,7 @@ namespace Fusion.Services.ShoppingCartAPI.Migrations
 
                     b.HasKey("CartDetailsId");
 
-                    b.HasIndex("CartHeaderId");
+                    b.HasIndex("CareHeaderId");
 
                     b.HasIndex("ProductId");
 
@@ -101,7 +106,7 @@ namespace Fusion.Services.ShoppingCartAPI.Migrations
                 {
                     b.HasOne("Fusion.Services.ShoppingCartAPI.Models.CartHeader", "CartHeader")
                         .WithMany()
-                        .HasForeignKey("CartHeaderId")
+                        .HasForeignKey("CareHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
