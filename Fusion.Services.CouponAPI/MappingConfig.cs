@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Fusion.Services.CouponAPI.Models;
+using Fusion.Services.CouponAPI.Models.DTO;
 
 namespace Fusion.Services.CouponAPI
 {
@@ -8,7 +10,7 @@ namespace Fusion.Services.CouponAPI
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                //config.CreateMap<Product, ProductDTO>().ReverseMap();
+                config.CreateMap<Coupon, CouponDTO>().ReverseMap();
                 //config.CreateMap<CartHeaderDTO, CartHeader>().ReverseMap();
                 //config.CreateMap<CartDetails, CartDetailsDTO>().ReverseMap();
                 //config.CreateMap<Cart, CartDTO>().ReverseMap();
