@@ -16,6 +16,16 @@ namespace Fusion.Services.ShoppingCartAPI.Repository
             _db = db;
             _mapper = mapper;
         }
+
+        public async Task<bool> ApplyCoupon(string userID, string couponCode)
+        {
+            var cartFromDb = await _db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userID);
+            cartFromDb.CouponCode = couponCode;
+            _db.CartHeaders.Update(cartFromDb);
+            await _db.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<bool> ClearCart(string userID)
         {
             var cartHeaderFromDb = await _db.CartHeaders.FirstOrDefaultAsync(u=>u.UserId == userID);
@@ -109,6 +119,15 @@ namespace Fusion.Services.ShoppingCartAPI.Repository
                 .Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId).Include(u=>u.Product);
 
             return _mapper.Map<CartDTO>(cart);
+        }
+
+        public async Task<bool> RemoveCoupon(string userID)
+        {
+            var cartFromDb = await _db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userID);
+            cartFromDb.CouponCode = "";
+            _db.CartHeaders.Update(cartFromDb);
+            await _db.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> RemoveFromCart(int cartDetailsId)

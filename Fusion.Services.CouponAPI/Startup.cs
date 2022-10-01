@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Fusion.Services.CouponAPI.DbContexts;
+using Fusion.Services.CouponAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -22,9 +23,9 @@ namespace Fusion.Services.CouponAPI
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-            //services.AddSingleton(mapper);
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            //services.AddScoped<ICartRepository, CartRepository>();
+            services.AddSingleton(mapper);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<ICouponRepository, CouponRepository>();
             services.AddControllers();
 
             services.AddAuthentication("Bearer")
