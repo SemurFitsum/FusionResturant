@@ -1,4 +1,5 @@
-﻿using Fusion.Services.ShoppingCartAPI.Models.DTO;
+﻿using Fusion.Services.ShoppingCartAPI.Messages;
+using Fusion.Services.ShoppingCartAPI.Models.DTO;
 using Fusion.Services.ShoppingCartAPI.Repository;
 using Fusion.ShoppingCartAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -121,12 +122,19 @@ namespace Fusion.Services.ShoppingCartAPI.Controllers
         }
 
         [HttpPost("Checkout")]
-        public async Task<object> Checkout()
+        public async Task<object> Checkout(CheckoutHeaderDTO checkoutHeader)
         {
             try
             {
-                bool isSuccess = await _cartRepository.RemoveCoupon(userID);
-                _response.Result = isSuccess;
+                CartDTO cartDTO = await _cartRepository.GetCartByUserId(checkoutHeader.UserId);
+
+                if (cartDTO == null)
+                {
+                    return BadRequest();
+                }
+
+                checkoutHeader.cartDetails = cartDTO.CartDetails;   
+                // logic to add message to process order.
 
             }
             catch (Exception ex)
