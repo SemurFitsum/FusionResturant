@@ -92,6 +92,27 @@ namespace Fusion.Web.Controllers
         {
             return View(await LoadCartDTOBasedOnLoggedInUser());
         }
+
+        [HttpPost("Checkout")]
+        public async Task<IActionResult> Checkout(CartDTO cartDTO)
+        {
+            try
+            {
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var response = await _cartService.Checkout<ResponseDTO>(cartDTO.CartHeader, accessToken);
+                return RedirectToAction(nameof(Confirmation));
+            }
+            catch (Exception ex)
+            {
+                return View(cartDTO);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Confirmation()
+        {
+            return View();
+        }
         private async Task<CartDTO> LoadCartDTOBasedOnLoggedInUser()
         {
             var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
