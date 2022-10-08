@@ -87,19 +87,42 @@ namespace Fusion.Web.Controllers
             return View();
         }
 
-        [HttpGet]
         public async Task<IActionResult> Checkout()
         {
             return View(await LoadCartDTOBasedOnLoggedInUser());
         }
 
-        [HttpPost("Checkout")]
+        [HttpPost]
         public async Task<IActionResult> Checkout(CartDTO cartDTO)
         {
             try
             {
+                var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
-                var response = await _cartService.Checkout<ResponseDTO>(cartDTO.CartHeader, accessToken);
+                var response = await _cartService.GetCartByUserIdAsync<ResponseDTO>(userId, accessToken);
+
+                CheckoutDTO cartDTO1 = new();
+                if (response != null && response.IsSuccess)
+                {
+                    cartDTO1 = JsonConvert.DeserializeObject<CheckoutDTO>(Convert.ToString(response.Result));
+
+                    cartDTO1.CartHeaderId = cartDTO.CartHeader.CartHeaderId;
+                    cartDTO1.UserId = cartDTO.CartHeader.UserId;
+                    cartDTO1.CouponCode = cartDTO.CartHeader.CouponCode;
+                    cartDTO1.OrderTotal = cartDTO.CartHeader.OrderTotal;
+                    cartDTO1.DiscountTotal = cartDTO.CartHeader.DiscountTotal;
+                    cartDTO1.FirstName = cartDTO.CartHeader.FirstName;
+                    cartDTO1.LastName = cartDTO.CartHeader.LastName;
+                    cartDTO1.PickupDateTime = cartDTO.CartHeader.PickupDateTime;
+                    cartDTO1.Phone = cartDTO.CartHeader.Phone;
+                    cartDTO1.Email = cartDTO.CartHeader.Email;
+                    cartDTO1.CardNumber = cartDTO.CartHeader.CardNumber;
+                    cartDTO1.CVV = cartDTO.CartHeader.CVV;
+                    cartDTO1.ExpiryMonthYear = cartDTO.CartHeader.ExpiryMonthYear;
+                    
+                }               
+
+                var response1 = await _cartService.Checkout<ResponseDTO>(cartDTO1, accessToken);
                 return RedirectToAction(nameof(Confirmation));
             }
             catch (Exception ex)
@@ -108,7 +131,6 @@ namespace Fusion.Web.Controllers
             }
         }
 
-        [HttpGet]
         public async Task<IActionResult> Confirmation()
         {
             return View();

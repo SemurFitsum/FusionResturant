@@ -69,7 +69,7 @@ namespace Fusion.Web.Controllers
                 CartHeader = new CartHeaderDTO
                 {
                     UserId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value,
-                    CouponCode = "Coupon"
+                    CouponCode = ""
                 }
             };
 

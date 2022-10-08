@@ -35,7 +35,7 @@ namespace Fusion.Web.Services
             });
         }
 
-        public async Task<T> Checkout<T>(CartHeaderDTO cartHeader, string token = null)
+        public async Task<T> Checkout<T>(CheckoutDTO cartHeader, string token = null)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
