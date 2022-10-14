@@ -12,7 +12,7 @@ namespace Fusion.MessageBus
     public class AzureServiceBusMessageBus : IMessageBus
     {
         //can be improved
-        private string connectionString = "";
+        private string connectionString = "Endpoint=sb://testsemur.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=4qNEz4a//uizAdPL1uaRHFsePMrb0wPjkA9b4SfYUy8=";
         public async Task PublisheMessage(BaseMessage message, string topicName)
         {
             ISenderClient senderClient = new TopicClient(connectionString, topicName);
