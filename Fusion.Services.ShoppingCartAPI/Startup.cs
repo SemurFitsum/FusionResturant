@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Fusion.MessageBus;
 using Fusion.Services.ShoppingCartAPI.DbContexts;
 using Fusion.Services.ShoppingCartAPI.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ namespace Fusion.Services.ShoppingCartAPI
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICartRepository, CartRepository>();
+            services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
             services.AddControllers();
 
             services.AddAuthentication("Bearer")

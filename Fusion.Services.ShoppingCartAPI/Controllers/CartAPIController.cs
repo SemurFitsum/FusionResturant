@@ -1,4 +1,5 @@
-﻿using Fusion.Services.ShoppingCartAPI.Messages;
+﻿using Fusion.MessageBus;
+using Fusion.Services.ShoppingCartAPI.Messages;
 using Fusion.Services.ShoppingCartAPI.Models.DTO;
 using Fusion.Services.ShoppingCartAPI.Repository;
 using Fusion.ShoppingCartAPI.Models.DTO;
@@ -11,10 +12,12 @@ namespace Fusion.Services.ShoppingCartAPI.Controllers
     public class CartAPIController : Controller
     {
         private readonly ICartRepository _cartRepository;
+        private readonly IMessageBus _messageBus;
         protected ResponseDTO _response;
-        public CartAPIController(ICartRepository cartRepository)
+        public CartAPIController(ICartRepository cartRepository, IMessageBus messageBus)
         {
             _cartRepository=cartRepository;
+            _messageBus=messageBus;
             this._response=new ResponseDTO();
         }
 
@@ -133,9 +136,9 @@ namespace Fusion.Services.ShoppingCartAPI.Controllers
                     return BadRequest();
                 }
 
-                checkoutHeader.cartDetails = cartDTO.CartDetails;   
+                checkoutHeader.cartDetails = cartDTO.CartDetails;
                 // logic to add message to process order.
-
+                await _messageBus.PublisheMessage(checkoutHeader, "checkoutmessagetopic");
             }
             catch (Exception ex)
             {

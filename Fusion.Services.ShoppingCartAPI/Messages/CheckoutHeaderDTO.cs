@@ -1,8 +1,9 @@
-﻿using Fusion.Services.ShoppingCartAPI.Models.DTO;
+﻿using Fusion.MessageBus;
+using Fusion.Services.ShoppingCartAPI.Models.DTO;
 
 namespace Fusion.Services.ShoppingCartAPI.Messages
 {
-    public class CheckoutHeaderDTO
+    public class CheckoutHeaderDTO: BaseMessage
     {
         public int CartHeaderId { get; set; }
         public string UserId { get; set; }
