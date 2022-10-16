@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.MessageBus", "Fusion.MessageBus\Fusion.MessageBus.csproj", "{D3433776-6297-4CE0-BC57-BAB3D731713E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.AzureMessageBus", "AzureMessageBus\Fusion.AzureMessageBus.csproj", "{F6FBE14B-1904-4FDA-990B-9DE06345769C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{D3433776-6297-4CE0-BC57-BAB3D731713E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3433776-6297-4CE0-BC57-BAB3D731713E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3433776-6297-4CE0-BC57-BAB3D731713E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6FBE14B-1904-4FDA-990B-9DE06345769C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6FBE14B-1904-4FDA-990B-9DE06345769C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6FBE14B-1904-4FDA-990B-9DE06345769C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6FBE14B-1904-4FDA-990B-9DE06345769C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{D803EB41-0320-4203-812E-B9F754117B18} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
 		{D1C0C178-990C-446E-A8C8-C2587A8F7794} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
 		{D3433776-6297-4CE0-BC57-BAB3D731713E} = {B2F5B08B-13DE-4120-82F5-DA999F0AA62C}
+		{F6FBE14B-1904-4FDA-990B-9DE06345769C} = {B2F5B08B-13DE-4120-82F5-DA999F0AA62C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E3E89EB-8A00-48AF-A247-766B75C18C43}

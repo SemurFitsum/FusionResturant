@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Fusion.MessageBus;
+using AzureMessageBus;
 using Fusion.Services.ShoppingCartAPI.DbContexts;
 using Fusion.Services.ShoppingCartAPI.Repository;
 using Microsoft.EntityFrameworkCore;

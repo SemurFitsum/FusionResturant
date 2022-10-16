@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fusion.MessageBus\Fusion.MessageBus.csproj" />
+    <ProjectReference Include="..\AzureMessageBus\Fusion.AzureMessageBus.csproj" />
   </ItemGroup>
 
 </Project>

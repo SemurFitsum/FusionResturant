@@ -1,4 +1,4 @@
-﻿using Fusion.MessageBus;
+﻿using AzureMessageBus;
 using Fusion.Services.ShoppingCartAPI.Messages;
 using Fusion.Services.ShoppingCartAPI.Models.DTO;
 using Fusion.Services.ShoppingCartAPI.Repository;
