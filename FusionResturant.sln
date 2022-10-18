@@ -21,7 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.MessageBus", "Fusion.MessageBus\Fusion.MessageBus.csproj", "{D3433776-6297-4CE0-BC57-BAB3D731713E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.AzureMessageBus", "AzureMessageBus\Fusion.AzureMessageBus.csproj", "{F6FBE14B-1904-4FDA-990B-9DE06345769C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusion.AzureMessageBus", "AzureMessageBus\Fusion.AzureMessageBus.csproj", "{F6FBE14B-1904-4FDA-990B-9DE06345769C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.Services.OrderAPI", "Fusion.Services.OrderAPI\Fusion.Services.OrderAPI.csproj", "{8866EE26-688F-4227-BD69-57ADD8CA1B47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{F6FBE14B-1904-4FDA-990B-9DE06345769C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6FBE14B-1904-4FDA-990B-9DE06345769C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6FBE14B-1904-4FDA-990B-9DE06345769C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8866EE26-688F-4227-BD69-57ADD8CA1B47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8866EE26-688F-4227-BD69-57ADD8CA1B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8866EE26-688F-4227-BD69-57ADD8CA1B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8866EE26-688F-4227-BD69-57ADD8CA1B47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{D1C0C178-990C-446E-A8C8-C2587A8F7794} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
 		{D3433776-6297-4CE0-BC57-BAB3D731713E} = {B2F5B08B-13DE-4120-82F5-DA999F0AA62C}
 		{F6FBE14B-1904-4FDA-990B-9DE06345769C} = {B2F5B08B-13DE-4120-82F5-DA999F0AA62C}
+		{8866EE26-688F-4227-BD69-57ADD8CA1B47} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E3E89EB-8A00-48AF-A247-766B75C18C43}
