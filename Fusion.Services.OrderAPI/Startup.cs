@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Fusion.Services.OrderAPI.DbContexts;
+using Fusion.Services.OrderAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -24,7 +25,13 @@ namespace Fusion.Services.OrderAPI
             //IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             //services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            
+            //services.AddScoped<IOrderRepository, OrderRepository>();
+
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            optionBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+
+            services.AddSingleton(new OrderRepository(optionBuilder.Options));
+
             services.AddControllers();
 
             services.AddAuthentication("Bearer")
