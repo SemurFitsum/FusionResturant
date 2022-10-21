@@ -3,16 +3,27 @@ using Fusion.Services.OrderAPI.Models;
 using Fusion.Services.OrderAPI.Repository;
 using Newtonsoft.Json;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace Fusion.Services.OrderAPI.Messaging
 {
     public class AzureServiceBusConsumer
     {
+        private readonly string serviceBusConnectionString;
+        private readonly string subscriptionName;
+        private readonly string checkOutMessageTopic;
         private readonly OrderRepository _orderRepository;
 
-        public AzureServiceBusConsumer(OrderRepository orderRepository)
+        private readonly IConfiguration _configuration;
+
+        public AzureServiceBusConsumer(OrderRepository orderRepository,IConfiguration configuration)
         {
             _orderRepository = orderRepository;
+            _configuration = configuration;
+
+            serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
+            subscriptionName = _configuration.GetValue<string>("CheckoutMessageTopic");
+            checkOutMessageTopic = _configuration.GetValue<string>("SubscriptionName");
         }
 
         private async Task OnCheckOutMessageReceived(ProcessMessageEventArgs args)
