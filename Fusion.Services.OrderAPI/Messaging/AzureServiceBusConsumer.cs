@@ -69,6 +69,7 @@ namespace Fusion.Services.OrderAPI.Messaging
                 CouponCode = checkoutHeaderDTO.CouponCode,
                 CVV = checkoutHeaderDTO.CVV,
                 DiscountTotal = checkoutHeaderDTO.DiscountTotal,
+                Phone  = checkoutHeaderDTO.Phone,
                 Email = checkoutHeaderDTO.Email,
                 ExpiryMonthYear = checkoutHeaderDTO.ExpiryMonthYear,
                 OrderTime = DateTime.Now,
