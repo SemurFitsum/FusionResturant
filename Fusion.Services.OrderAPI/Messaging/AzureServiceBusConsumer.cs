@@ -26,7 +26,7 @@ namespace Fusion.Services.OrderAPI.Messaging
 
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
             subscriptionCheckOut = _configuration.GetValue<string>("SubscriptionCheckOut");
-            checkOutMessageTopic = _configuration.GetValue<string>("SubscriptionName");
+            checkOutMessageTopic = _configuration.GetValue<string>("CheckoutMessageTopic");
 
             var client = new ServiceBusClient(serviceBusConnectionString);
 

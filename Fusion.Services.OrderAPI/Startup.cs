@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Fusion.Services.OrderAPI.DbContexts;
-using Fusion.Services.OrderAPI.Extension;
 using Fusion.Services.OrderAPI.Messaging;
 using Fusion.Services.OrderAPI.Repository;
+using Mango.Services.OrderAPI.Extension;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -33,6 +33,7 @@ namespace Fusion.Services.OrderAPI
             optionBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 
             services.AddSingleton(new OrderRepository(optionBuilder.Options));
+
             services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
 
             services.AddControllers();
