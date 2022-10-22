@@ -4,15 +4,18 @@ using Fusion.Services.OrderAPI.Repository;
 using Newtonsoft.Json;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using System.Runtime.InteropServices;
 
 namespace Fusion.Services.OrderAPI.Messaging
 {
     public class AzureServiceBusConsumer
     {
         private readonly string serviceBusConnectionString;
-        private readonly string subscriptionName;
+        private readonly string subscriptionCheckOut;
         private readonly string checkOutMessageTopic;
         private readonly OrderRepository _orderRepository;
+
+        private ServiceBusProcessor checkOutProcessor;
 
         private readonly IConfiguration _configuration;
 
@@ -22,8 +25,30 @@ namespace Fusion.Services.OrderAPI.Messaging
             _configuration = configuration;
 
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
-            subscriptionName = _configuration.GetValue<string>("CheckoutMessageTopic");
+            subscriptionCheckOut = _configuration.GetValue<string>("SubscriptionCheckOut");
             checkOutMessageTopic = _configuration.GetValue<string>("SubscriptionName");
+
+            var client = new ServiceBusClient(serviceBusConnectionString);
+
+            checkOutProcessor = client.CreateProcessor(checkOutMessageTopic, subscriptionCheckOut);
+        }
+
+        public async Task Start()
+        {
+            checkOutProcessor.ProcessMessageAsync += OnCheckOutMessageReceived;
+            checkOutProcessor.ProcessErrorAsync += ErrorHandler;
+            await checkOutProcessor.StartProcessingAsync();
+        }
+        public async Task Stop()
+        {
+            await checkOutProcessor.StopProcessingAsync();
+            await checkOutProcessor.DisposeAsync();
+        }
+
+        Task ErrorHandler(ProcessErrorEventArgs args)
+        {
+            Console.WriteLine(args.Exception.ToString());
+            return Task.CompletedTask;
         }
 
         private async Task OnCheckOutMessageReceived(ProcessMessageEventArgs args)
