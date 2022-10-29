@@ -123,6 +123,13 @@ namespace Fusion.Web.Controllers
                 }               
 
                 var response1 = await _cartService.Checkout<ResponseDTO>(cartDTO1, accessToken);
+
+                if (!response1.IsSuccess)
+                {
+                    TempData["Error"] = response1.DisplayMessage;
+                    return RedirectToAction(nameof(Checkout));
+                }
+
                 return RedirectToAction(nameof(Confirmation));
             }
             catch (Exception ex)
