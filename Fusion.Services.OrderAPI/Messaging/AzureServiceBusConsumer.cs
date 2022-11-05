@@ -15,6 +15,8 @@ namespace Fusion.Services.OrderAPI.Messaging
         private readonly string serviceBusConnectionString;
         private readonly string subscriptionCheckOut;
         private readonly string checkOutMessageTopic;
+        private readonly string orderPaymentProcessTopic;
+
         private readonly OrderRepository _orderRepository;
 
         private ServiceBusProcessor checkOutProcessor;
@@ -31,6 +33,7 @@ namespace Fusion.Services.OrderAPI.Messaging
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
             subscriptionCheckOut = _configuration.GetValue<string>("SubscriptionCheckOut");
             checkOutMessageTopic = _configuration.GetValue<string>("CheckoutMessageTopic");
+            orderPaymentProcessTopic = _configuration.GetValue<string>("OrderPaymentProcessTopic");
 
             var client = new ServiceBusClient(serviceBusConnectionString);
 
@@ -109,11 +112,11 @@ namespace Fusion.Services.OrderAPI.Messaging
 
             try
             {
-                await _messageBus.PublisheMessage(paymentRequestMessage, "");
+                await _messageBus.PublisheMessage(paymentRequestMessage, orderPaymentProcessTopic);
+                await args.CompleteMessageAsync(args.Message);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
