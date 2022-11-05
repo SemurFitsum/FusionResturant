@@ -23,7 +23,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.MessageBus", "Fusion
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusion.AzureMessageBus", "AzureMessageBus\Fusion.AzureMessageBus.csproj", "{F6FBE14B-1904-4FDA-990B-9DE06345769C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.Services.OrderAPI", "Fusion.Services.OrderAPI\Fusion.Services.OrderAPI.csproj", "{8866EE26-688F-4227-BD69-57ADD8CA1B47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusion.Services.OrderAPI", "Fusion.Services.OrderAPI\Fusion.Services.OrderAPI.csproj", "{8866EE26-688F-4227-BD69-57ADD8CA1B47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{448A8A67-C749-4FD7-80BA-E62692871663}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentProcessor", "PaymentProcessor\PaymentProcessor.csproj", "{277F6419-D832-4042-BF69-AD3F6C945788}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,10 @@ Global
 		{8866EE26-688F-4227-BD69-57ADD8CA1B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8866EE26-688F-4227-BD69-57ADD8CA1B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8866EE26-688F-4227-BD69-57ADD8CA1B47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{277F6419-D832-4042-BF69-AD3F6C945788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277F6419-D832-4042-BF69-AD3F6C945788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277F6419-D832-4042-BF69-AD3F6C945788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{277F6419-D832-4042-BF69-AD3F6C945788}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +84,7 @@ Global
 		{D3433776-6297-4CE0-BC57-BAB3D731713E} = {B2F5B08B-13DE-4120-82F5-DA999F0AA62C}
 		{F6FBE14B-1904-4FDA-990B-9DE06345769C} = {B2F5B08B-13DE-4120-82F5-DA999F0AA62C}
 		{8866EE26-688F-4227-BD69-57ADD8CA1B47} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
+		{277F6419-D832-4042-BF69-AD3F6C945788} = {448A8A67-C749-4FD7-80BA-E62692871663}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E3E89EB-8A00-48AF-A247-766B75C18C43}
