@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using System.Runtime.InteropServices;
+using AzureMessageBus;
+using Fusion.Services.OrderAPI.Messages;
 
 namespace Fusion.Services.OrderAPI.Messaging
 {
@@ -18,11 +20,13 @@ namespace Fusion.Services.OrderAPI.Messaging
         private ServiceBusProcessor checkOutProcessor;
 
         private readonly IConfiguration _configuration;
+        private readonly IMessageBus _messageBus;
 
-        public AzureServiceBusConsumer(OrderRepository orderRepository,IConfiguration configuration)
+        public AzureServiceBusConsumer(OrderRepository orderRepository,IConfiguration configuration, IMessageBus messageBus)
         {
             _orderRepository = orderRepository;
             _configuration = configuration;
+            _messageBus = messageBus;
 
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
             subscriptionCheckOut = _configuration.GetValue<string>("SubscriptionCheckOut");
@@ -92,6 +96,26 @@ namespace Fusion.Services.OrderAPI.Messaging
             }
 
             await _orderRepository.AddOrder(orderHeader);
+
+            PaymentRequestMessage paymentRequestMessage = new()
+            {
+                Name = orderHeader.FirstName + " " + orderHeader.LastName,
+                CardNumber = orderHeader.CardNumber,
+                CVV = orderHeader.CVV,
+                ExpiryMonthYear = orderHeader.ExpiryMonthYear,
+                OrderId = orderHeader.OrderHeaderId,
+                OrderTotal = orderHeader.OrderTotal
+            };
+
+            try
+            {
+                await _messageBus.PublisheMessage(paymentRequestMessage, "");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AzureMessageBus;
 using Fusion.Services.OrderAPI.DbContexts;
 using Fusion.Services.OrderAPI.Messaging;
 using Fusion.Services.OrderAPI.Repository;
@@ -16,7 +17,6 @@ namespace Fusion.Services.OrderAPI
             Configuration = configuration;
 
         }
-
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
@@ -35,6 +35,8 @@ namespace Fusion.Services.OrderAPI
             services.AddSingleton(new OrderRepository(optionBuilder.Options));
 
             services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
+
+            services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
 
             services.AddControllers();
 
