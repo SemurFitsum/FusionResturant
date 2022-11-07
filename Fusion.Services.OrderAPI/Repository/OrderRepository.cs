@@ -23,7 +23,7 @@ namespace Fusion.Services.OrderAPI.Repository
         {
             await using var _db = new ApplicationDbContext(_dbContext);
             var orderHeaderFromDb = await _db.OrderHeaders.FirstOrDefaultAsync(u => u.OrderHeaderId == orderHeaderId);
-            if (orderHeaderFromDb == null)
+            if (orderHeaderFromDb != null)
             {
                 orderHeaderFromDb.PaymentStatus = paid;
                 await _db.SaveChangesAsync();
