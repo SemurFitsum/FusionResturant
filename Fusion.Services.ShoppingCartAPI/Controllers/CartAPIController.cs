@@ -152,7 +152,8 @@ namespace Fusion.Services.ShoppingCartAPI.Controllers
 
                 checkoutHeader.cartDetails = cartDTO.CartDetails;
                 // logic to add message to process order.
-                await _messageBus.PublisheMessage(checkoutHeader, "checkoutmessagetopic");
+                //await _messageBus.PublisheMessage(checkoutHeader, "checkoutmessagetopic");
+                await _messageBus.PublisheMessage(checkoutHeader, "checkoutqueue");
 
                 await _cartRepository.ClearCart(checkoutHeader.UserId);
             }
