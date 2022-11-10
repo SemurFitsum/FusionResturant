@@ -40,7 +40,8 @@ namespace Fusion.Services.OrderAPI.Messaging
 
             var client = new ServiceBusClient(serviceBusConnectionString);
 
-            checkOutProcessor = client.CreateProcessor(checkOutMessageTopic, subscriptionCheckOut);
+            //checkOutProcessor = client.CreateProcessor(checkOutMessageTopic, subscriptionCheckOut);
+            checkOutProcessor = client.CreateProcessor(checkOutMessageTopic);
             orderUpdatePaymentStatusProcessor = client.CreateProcessor(orderUpdatePaymentResultTopic, subscriptionCheckOut); 
         }
 
