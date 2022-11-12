@@ -31,7 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentProcessor", "Payment
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusion.Services.PaymentAPI", "Fusion.Services.PaymentAPI\Fusion.Services.PaymentAPI.csproj", "{EC5BC428-EE96-4D2C-8C85-DCE9E12B767B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.Services.EmailAPI", "Fusion.Services.EmailAPI\Fusion.Services.EmailAPI.csproj", "{FE873703-9D6A-48B8-896D-9AA395CC497A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusion.Services.EmailAPI", "Fusion.Services.EmailAPI\Fusion.Services.EmailAPI.csproj", "{FE873703-9D6A-48B8-896D-9AA395CC497A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{DC1051A4-287F-40B8-A16A-1400A993398E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion.GatewaySolution", "Fusion.GatewaySolution\Fusion.GatewaySolution.csproj", "{C87E8862-F43A-4B83-8F0D-0E3E4A35F261}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +87,10 @@ Global
 		{FE873703-9D6A-48B8-896D-9AA395CC497A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE873703-9D6A-48B8-896D-9AA395CC497A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE873703-9D6A-48B8-896D-9AA395CC497A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C87E8862-F43A-4B83-8F0D-0E3E4A35F261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C87E8862-F43A-4B83-8F0D-0E3E4A35F261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C87E8862-F43A-4B83-8F0D-0E3E4A35F261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C87E8862-F43A-4B83-8F0D-0E3E4A35F261}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +107,7 @@ Global
 		{277F6419-D832-4042-BF69-AD3F6C945788} = {448A8A67-C749-4FD7-80BA-E62692871663}
 		{EC5BC428-EE96-4D2C-8C85-DCE9E12B767B} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
 		{FE873703-9D6A-48B8-896D-9AA395CC497A} = {E4E35CAD-641C-48A1-90D8-47E97DBBEDD3}
+		{C87E8862-F43A-4B83-8F0D-0E3E4A35F261} = {DC1051A4-287F-40B8-A16A-1400A993398E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E3E89EB-8A00-48AF-A247-766B75C18C43}
